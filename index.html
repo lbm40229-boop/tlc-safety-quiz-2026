@@ -31,9 +31,6 @@ body{background:var(--navy);font-family:'DM Sans',sans-serif;min-height:100vh;co
 .fg{margin-bottom:18px;}
 .fl{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:7px;}
 .req{color:var(--red);margin-left:2px;}
-input[type=text]{width:100%;height:44px;padding:0 14px;border-radius:10px;border:1.5px solid rgba(168,136,255,0.2);background:rgba(168,136,255,0.06);color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .15s;}
-input[type=text]::placeholder{color:var(--muted);}
-input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,136,255,.12);}
 .gg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .go{position:relative;cursor:pointer;}
 .go input{position:absolute;opacity:0;width:0;height:0;}
@@ -134,10 +131,9 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
 
   <div id="regScreen">
     <div class="card">
-      <div class="ri">🃏</div>
+      <div class="ri">📋</div>
       <div class="rt">Before we start</div>
-      <div class="rd">19 scenario cards covering Fire Safety, Chemical Safety, Mental Health and OSH General. Your score will be saved automatically.</div>
-
+      <div class="rd">19 scenario cards covering Fire Safety, Chemical Safety, Mental Health and OSH. Your score will be saved automatically.</div>
       <div class="fg">
         <label class="fl">Gender <span class="req">*</span></label>
         <div class="gg">
@@ -148,7 +144,6 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
         </div>
         <div class="err" id="err-gender">Please select your gender.</div>
       </div>
-
       <div class="rg">
         <div class="ri2"><div class="rn">19</div><div class="rl">Scenario cards</div></div>
         <div class="ri2"><div class="rn">1pt</div><div class="rl">Per correct answer</div></div>
@@ -195,7 +190,6 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
       <div class="fsb" id="finalScoreBig"></div>
       <div class="fss">out of 18 scored questions</div>
       <div class="gb" id="gradeBadge"></div>
-
       <div class="sc2" id="summaryCard"></div>
       <div class="gtbl">
         <div class="gtr" id="gr4"><span class="gtl">🏆 Safety Champion</span><span class="gtr2">17 – 18</span></div>
@@ -203,7 +197,6 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
         <div class="gtr" id="gr2"><span class="gtl">👍 Good Effort</span><span class="gtr2">9 – 12</span></div>
         <div class="gtr" id="gr1"><span class="gtl">📚 Keep Learning</span><span class="gtr2">0 – 8</span></div>
       </div>
-
       <div class="fbtns">
         <button class="br" onclick="restartGame()">Play again</button>
         <button class="bs" onclick="shareScore()">Share score 📲</button>
@@ -216,7 +209,8 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
 <div class="footer">The LUX Collective &nbsp;·&nbsp; World Safety &amp; Health Day 2026 &nbsp;·&nbsp; ILO Theme: Ensuring a Healthy Psychosocial Working Environment for All</div>
 
 <script>
-const URL2="https://script.google.com/macros/s/AKfycbz2BcCGuNeZW_ykUNHtXFLIC_oCEEKcAhTUlVEmU874pwYTNW03O19RS5I8BztVbPFI/exec";
+const SURL="https://script.google.com/macros/s/AKfycbz2BcCGuNeZW_ykUNHtXFLIC_oCEEKcAhTUlVEmU874pwYTNW03O19RS5I8BztVbPFI/exec";
+
 const CARDS=[
   {cat:'fire',label:'Fire Safety',emoji:'🔥',scored:true,q:'You are working in the kitchen and notice smoke coming from a storage cupboard. What is the FIRST thing you should do?',opts:['Open the cupboard to see what is burning','Raise the alarm immediately and alert colleagues','Try to put out the fire yourself before calling anyone','Continue working and wait to see if it gets worse'],ans:1,explain:'The first action is always to raise the alarm. Never open a door to a suspected fire. Follow R.A.C.E: Rescue, Alarm, Contain, Extinguish.'},
   {cat:'fire',label:'Fire Safety',emoji:'🔥',scored:true,q:'Which type of fire extinguisher should you NEVER use on an electrical fire?',opts:['CO2 extinguisher','Dry powder extinguisher','Water extinguisher','Clean agent extinguisher'],ans:2,explain:'Water conducts electricity — using it on an electrical fire puts you at serious risk of electrocution. Always use CO2 or dry powder on electrical fires.'},
@@ -234,9 +228,9 @@ const CARDS=[
   {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'A heavy trolley almost hits a guest in a corridor. No one is injured. Should you report it?',opts:['No — nothing happened','Yes — near-misses must always be reported as they indicate a potential hazard','Only report if a supervisor was present','Wait to see if it happens again'],ans:1,explain:'Near-misses are warnings. Reporting them allows hazards to be corrected before someone gets hurt. Every near-miss reported is a potential accident prevented.'},
   {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'Why is it important to follow safety signs and instructions?',opts:['They are just decoration in the workplace','They help prevent accidents, protect lives, and ensure legal compliance','They only apply to new employees during induction','They are optional guidelines from management'],ans:1,explain:'Safety signs and instructions exist to protect everyone in the workplace. Following them is a legal obligation and a moral responsibility — they save lives.'},
   {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'Which colour is typically used to indicate a WARNING on safety signage?',opts:['Red','Green','Blue','Yellow'],ans:3,explain:'Yellow (or amber) is the internationally recognised colour for warning signs. Red indicates prohibition or fire equipment. Green indicates safe conditions or escape routes.'},
-  {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'What does PPE stand for?',opts:['Personal Prevention Equipment','Personal Protective Equipment','Protective Performance Equipment','Primary Prevention Element'],ans:1,explain:'PPE — Personal Protective Equipment — includes gloves, goggles, helmets, hi-vis vests and other gear worn to minimise exposure to hazards that cannot be eliminated by other means.'},
+  {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'What does PPE stand for?',opts:['Personal Prevention Equipment','Personal Protective Equipment','Protective Performance Equipment','Primary Prevention Element'],ans:1,explain:'PPE — Personal Protective Equipment — includes gloves, goggles, helmets, hi-vis vests and other gear worn to minimise exposure to hazards.'},
   {cat:'osh',label:'OSH General',emoji:'⚠️',scored:true,q:'What is a risk assessment?',opts:['A form you fill in after an accident','A process to identify hazards, evaluate risks and implement controls','A checklist for daily cleaning tasks','A fire drill procedure'],ans:1,explain:'A risk assessment systematically identifies hazards, evaluates the likelihood and severity of harm, and puts controls in place to eliminate or reduce the risk.'},
-  {cat:'star',label:'Safety Rating',emoji:'⭐',scored:false,q:'How would you rate the overall level of safety at your workplace?',opts:['⭐ 1 — Poor','⭐⭐ 2 — Needs Improvement','⭐⭐⭐ 3 — Satisfactory','⭐⭐⭐⭐⭐ 4 & 5 — Good to Excellent'],ans:-1,explain:'Thank you for your honest feedback! Your rating helps us identify areas for improvement and strengthen our safety culture across The LUX Collective.'},
+  {cat:'star',label:'Safety Rating',emoji:'⭐',scored:false,q:'How would you rate the overall level of safety at your workplace?',opts:['⭐ 1 — Poor','⭐⭐ 2 — Needs Improvement','⭐⭐⭐ 3 — Satisfactory','⭐⭐⭐⭐⭐ 4 & 5 — Good to Excellent'],ans:-1,explain:'Thank you for your honest feedback! Your rating helps us strengthen our safety culture across The LUX Collective.'},
 ];
 
 const BADGE={fire:'bfire',chem:'bchem',mental:'bmental',osh:'bosh',star:'bstar'};
@@ -263,54 +257,54 @@ function startQuiz(){
 function renderCard(){
   answered=false;
   const c=shuffled[current];
-  document.getElementById('progressLabel').textContent=`Card ${current+1} of ${shuffled.length}`;
-  document.getElementById('scoreBadge').textContent=`Score: ${score} / ${scoredTotal}`;
+  document.getElementById('progressLabel').textContent='Card '+(current+1)+' of '+shuffled.length;
+  document.getElementById('scoreBadge').textContent='Score: '+score+' / '+scoredTotal;
   document.getElementById('progressFill').style.width=((current/shuffled.length)*100)+'%';
   const badge=document.getElementById('qBadge');
   badge.className='qb '+(BADGE[c.cat]||'bosh');
   badge.textContent=c.emoji+'  '+c.label+(c.scored?'':' — Feedback');
-  document.getElementById('qNumber').textContent=`Question ${current+1}`;
+  document.getElementById('qNumber').textContent='Question '+(current+1);
   document.getElementById('qText').textContent=c.q;
   const opts=document.getElementById('qOptions');
   opts.innerHTML='';
-  c.opts.forEach((opt,i)=>{
-    const btn=document.createElement('button');
+  c.opts.forEach(function(opt,i){
+    var btn=document.createElement('button');
     btn.className='opt';
-    btn.innerHTML=`<span class="ol">${LT[i]}</span><span>${opt}</span>`;
-    btn.onclick=()=>selectAnswer(i);
+    btn.innerHTML='<span class="ol">'+LT[i]+'</span><span>'+opt+'</span>';
+    btn.onclick=function(){selectAnswer(i);};
     opts.appendChild(btn);
   });
-  const fb=document.getElementById('feedbackBox');
+  var fb=document.getElementById('feedbackBox');
   fb.style.display='none';fb.className='fb';
   document.getElementById('nextBtn').style.display='none';
-  const qc=document.getElementById('qCard');
+  var qc=document.getElementById('qCard');
   qc.style.animation='none';void qc.offsetWidth;qc.style.animation='si 0.3s ease';
 }
 
 function selectAnswer(chosen){
   if(answered)return;
   answered=true;
-  const c=shuffled[current];
-  const btns=document.querySelectorAll('.opt');
+  var c=shuffled[current];
+  var btns=document.querySelectorAll('.opt');
   if(!c.scored){
-    btns.forEach((b,i)=>{b.disabled=true;if(i===chosen)b.classList.add('sel-rating');});
-    const fb=document.getElementById('feedbackBox');
+    btns.forEach(function(b,i){b.disabled=true;if(i===chosen)b.classList.add('sel-rating');});
+    var fb=document.getElementById('feedbackBox');
     fb.className='fb ifb';
     document.getElementById('fbTitle').textContent='✓  Thank you for your feedback!';
     document.getElementById('fbBody').textContent=c.explain;
     fb.style.display='block';
   } else {
-    const ok=chosen===c.ans;
+    var ok=chosen===c.ans;
     if(ok)score++;
-    btns.forEach((b,i)=>{b.disabled=true;if(i===c.ans)b.classList.add('correct');else if(i===chosen&&!ok)b.classList.add('wrong');else b.classList.add('reveal');});
-    document.getElementById('scoreBadge').textContent=`Score: ${score} / ${scoredTotal}`;
-    const fb=document.getElementById('feedbackBox');
+    btns.forEach(function(b,i){b.disabled=true;if(i===c.ans)b.classList.add('correct');else if(i===chosen&&!ok)b.classList.add('wrong');else b.classList.add('reveal');});
+    document.getElementById('scoreBadge').textContent='Score: '+score+' / '+scoredTotal;
+    var fb=document.getElementById('feedbackBox');
     fb.className='fb '+(ok?'cfb':'wfb');
     document.getElementById('fbTitle').textContent=ok?'✓  Correct — well done!':'✗  Not quite — here\'s why:';
     document.getElementById('fbBody').textContent=c.explain;
     fb.style.display='block';
   }
-  const nb=document.getElementById('nextBtn');
+  var nb=document.getElementById('nextBtn');
   nb.style.display='block';
   nb.textContent=current+1<shuffled.length?'Next card →':'See my result →';
 }
@@ -321,21 +315,29 @@ function submitAndShowFinal(){
   document.getElementById('progressSection').style.display='none';
   document.getElementById('questionScreen').style.display='none';
   document.getElementById('submittingScreen').style.display='block';
-  const pct=Math.round((score/scoredTotal)*100);
-  let grade;
-  if(pct>=94)grade='🏆 Safety Champion';
-  else if(pct>=72)grade='⭐ Safety Aware';
-  else if(pct>=50)grade='👍 Good Effort';
-  else grade='📚 Keep Learning';
-  const timeTaken=Math.round((Date.now()-startTime)/1000);
-  fetch(URL2,{method:'POST',body:JSON.stringify({name:userData.name,gender:userData.gender,jobTitle:userData.jobTitle,score,grade,timeTaken})})
-    .catch(()=>{}).finally(()=>{document.getElementById('submittingScreen').style.display='none';showFinal(score,grade);});
+
+  var pct=Math.round((score/scoredTotal)*100);
+  var grade;
+  if(pct>=94)grade='Safety Champion';
+  else if(pct>=72)grade='Safety Aware';
+  else if(pct>=50)grade='Good Effort';
+  else grade='Keep Learning';
+
+  var url=SURL+'?gender='+encodeURIComponent(userData.gender)+'&score='+encodeURIComponent(score)+'&grade='+encodeURIComponent(grade);
+
+  var img=new Image();
+  img.src=url;
+
+  setTimeout(function(){
+    document.getElementById('submittingScreen').style.display='none';
+    showFinal(score,grade);
+  },3000);
 }
 
 function showFinal(sc,grade){
   document.getElementById('finalScreen').style.display='block';
-  const pct=Math.round((sc/scoredTotal)*100);
-  let trophy,title,gradeClass,ar;
+  var pct=Math.round((sc/scoredTotal)*100);
+  var trophy,title,gradeClass,ar;
   if(pct>=94){trophy='🏆';title='Safety Champion!';gradeClass='gchamp';ar='gr4';}
   else if(pct>=72){trophy='⭐';title='Safety Aware!';gradeClass='gaware';ar='gr3';}
   else if(pct>=50){trophy='👍';title='Good Effort!';gradeClass='ggood';ar='gr2';}
@@ -343,12 +345,9 @@ function showFinal(sc,grade){
   document.getElementById('finalTrophy').textContent=trophy;
   document.getElementById('finalTitle').textContent=title;
   document.getElementById('finalScoreBig').textContent=sc+' / '+scoredTotal;
-  const gb=document.getElementById('gradeBadge');gb.textContent=grade;gb.className='gb '+gradeClass;
-  document.getElementById('summaryCard').innerHTML=`
-    <div class="sr"><span class="sk">Final Score</span><span class="sv" style="color:var(--purple);font-weight:600;">${sc} / ${scoredTotal}</span></div>
-    <div class="sr"><span class="sk">Grade</span><span class="sv">${grade}</span></div>
-  `;
-  ['gr1','gr2','gr3','gr4'].forEach(id=>{document.getElementById(id).classList.toggle('act',id===ar);});
+  var gb=document.getElementById('gradeBadge');gb.textContent=trophy+' '+title.replace('!','');gb.className='gb '+gradeClass;
+  document.getElementById('summaryCard').innerHTML='<div class="sr"><span class="sk">Gender</span><span class="sv">'+userData.gender+'</span></div><div class="sr"><span class="sk">Final Score</span><span class="sv" style="color:var(--purple);font-weight:600;">'+sc+' / '+scoredTotal+'</span></div><div class="sr"><span class="sk">Grade</span><span class="sv">'+trophy+' '+title.replace('!','')+'</span></div>';
+  ['gr1','gr2','gr3','gr4'].forEach(function(id){document.getElementById(id).classList.toggle('act',id===ar);});
 }
 
 function restartGame(){
@@ -359,9 +358,15 @@ function restartGame(){
 }
 
 function shareScore(){
-  const msg=`I scored ${score}/${scoredTotal} on The LUX Collective Safety Scenario Card Game!\nWorld Safety & Health Day 2026 — Mental Health at Work 🧠`;
+  var pct=Math.round((score/scoredTotal)*100);
+  var grade;
+  if(pct>=94)grade='🏆 Safety Champion';
+  else if(pct>=72)grade='⭐ Safety Aware';
+  else if(pct>=50)grade='👍 Good Effort';
+  else grade='📚 Keep Learning';
+  var msg='I scored '+score+'/'+scoredTotal+' on The LUX Collective Safety Scenario Card Game!\n'+grade+'\nWorld Safety & Health Day 2026 — Mental Health at Work 🧠';
   if(navigator.share)navigator.share({title:'My Safety Score',text:msg});
-  else if(navigator.clipboard)navigator.clipboard.writeText(msg).then(()=>alert('Score copied! Paste it in WhatsApp 📲'));
+  else if(navigator.clipboard)navigator.clipboard.writeText(msg).then(function(){alert('Score copied! Paste it in WhatsApp 📲');});
 }
 </script>
 </body>
