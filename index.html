@@ -235,7 +235,7 @@ const CARDS=[
 
 const BADGE={fire:'bfire',chem:'bchem',mental:'bmental',osh:'bosh',star:'bstar'};
 const LT=['A','B','C','D'];
-let shuffled=[],current=0,score=0,scoredTotal=0,answered=false,userData={},startTime=0;
+let shuffled=[],current=0,score=0,scoredTotal=0,answered=false,userData={},startTime=0,ratingAnswer='';
 
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
@@ -288,6 +288,7 @@ function selectAnswer(chosen){
   var btns=document.querySelectorAll('.opt');
   if(!c.scored){
     btns.forEach(function(b,i){b.disabled=true;if(i===chosen)b.classList.add('sel-rating');});
+    ratingAnswer=c.opts[chosen];
     var fb=document.getElementById('feedbackBox');
     fb.className='fb ifb';
     document.getElementById('fbTitle').textContent='✓  Thank you for your feedback!';
@@ -323,7 +324,7 @@ function submitAndShowFinal(){
   else if(pct>=50)grade='Good Effort';
   else grade='Keep Learning';
 
-  var url=SURL+'?gender='+encodeURIComponent(userData.gender)+'&score='+encodeURIComponent(score)+'&grade='+encodeURIComponent(grade);
+  var url=SURL+'?gender='+encodeURIComponent(userData.gender)+'&score='+encodeURIComponent(score)+'&grade='+encodeURIComponent(grade)+'&rating='+encodeURIComponent(ratingAnswer);
 
   var img=new Image();
   img.src=url;
