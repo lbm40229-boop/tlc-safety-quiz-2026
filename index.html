@@ -134,14 +134,10 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
 
   <div id="regScreen">
     <div class="card">
-      <div class="ri">📋</div>
+      <div class="ri">🃏</div>
       <div class="rt">Before we start</div>
-      <div class="rd">Fill in your details so your score is recorded. Takes 30 seconds.</div>
-      <div class="fg">
-        <label class="fl" for="fname">Full name <span class="req">*</span></label>
-        <input type="text" id="fname" placeholder="e.g. Jean-Marie Dupont">
-        <div class="err" id="err-name">Please enter your full name.</div>
-      </div>
+      <div class="rd">19 scenario cards covering Fire Safety, Chemical Safety, Mental Health and OSH General. Your score will be saved automatically.</div>
+
       <div class="fg">
         <label class="fl">Gender <span class="req">*</span></label>
         <div class="gg">
@@ -152,11 +148,7 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
         </div>
         <div class="err" id="err-gender">Please select your gender.</div>
       </div>
-      <div class="fg">
-        <label class="fl" for="jobtitle">Job title <span class="req">*</span></label>
-        <input type="text" id="jobtitle" placeholder="e.g. HSE Manager">
-        <div class="err" id="err-job">Please enter your job title.</div>
-      </div>
+
       <div class="rg">
         <div class="ri2"><div class="rn">19</div><div class="rl">Scenario cards</div></div>
         <div class="ri2"><div class="rn">1pt</div><div class="rl">Per correct answer</div></div>
@@ -203,6 +195,7 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
       <div class="fsb" id="finalScoreBig"></div>
       <div class="fss">out of 18 scored questions</div>
       <div class="gb" id="gradeBadge"></div>
+
       <div class="sc2" id="summaryCard"></div>
       <div class="gtbl">
         <div class="gtr" id="gr4"><span class="gtl">🏆 Safety Champion</span><span class="gtr2">17 – 18</span></div>
@@ -210,6 +203,7 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
         <div class="gtr" id="gr2"><span class="gtl">👍 Good Effort</span><span class="gtr2">9 – 12</span></div>
         <div class="gtr" id="gr1"><span class="gtl">📚 Keep Learning</span><span class="gtr2">0 – 8</span></div>
       </div>
+
       <div class="fbtns">
         <button class="br" onclick="restartGame()">Play again</button>
         <button class="bs" onclick="shareScore()">Share score 📲</button>
@@ -222,7 +216,7 @@ input[type=text]:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,
 <div class="footer">The LUX Collective &nbsp;·&nbsp; World Safety &amp; Health Day 2026 &nbsp;·&nbsp; ILO Theme: Ensuring a Healthy Psychosocial Working Environment for All</div>
 
 <script>
-const URL2="https://script.google.com/macros/s/AKfycbyDBF029bl48Z1UtoNZvUbO7G6rLsrkhn5unglWKZdMIyqMVU45lf6WF_uLKXXVQpFsvg/exec";
+const URL2="https://script.google.com/macros/s/AKfycbz2BcCGuNeZW_ykUNHtXFLIC_oCEEKcAhTUlVEmU874pwYTNW03O19RS5I8BztVbPFI/exec";
 const CARDS=[
   {cat:'fire',label:'Fire Safety',emoji:'🔥',scored:true,q:'You are working in the kitchen and notice smoke coming from a storage cupboard. What is the FIRST thing you should do?',opts:['Open the cupboard to see what is burning','Raise the alarm immediately and alert colleagues','Try to put out the fire yourself before calling anyone','Continue working and wait to see if it gets worse'],ans:1,explain:'The first action is always to raise the alarm. Never open a door to a suspected fire. Follow R.A.C.E: Rescue, Alarm, Contain, Extinguish.'},
   {cat:'fire',label:'Fire Safety',emoji:'🔥',scored:true,q:'Which type of fire extinguisher should you NEVER use on an electrical fire?',opts:['CO2 extinguisher','Dry powder extinguisher','Water extinguisher','Clean agent extinguisher'],ans:2,explain:'Water conducts electricity — using it on an electrical fire puts you at serious risk of electrocution. Always use CO2 or dry powder on electrical fires.'},
@@ -252,14 +246,10 @@ let shuffled=[],current=0,score=0,scoredTotal=0,answered=false,userData={},start
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 
 function startQuiz(){
-  const name=document.getElementById('fname').value.trim();
-  const gender=document.querySelector('input[name="gender"]:checked');
-  const job=document.getElementById('jobtitle').value.trim();
-  document.getElementById('err-name').classList.toggle('show',!name);
+  var gender=document.querySelector('input[name="gender"]:checked');
   document.getElementById('err-gender').classList.toggle('show',!gender);
-  document.getElementById('err-job').classList.toggle('show',!job);
-  if(!name||!gender||!job)return;
-  userData={name,gender:gender.value,jobTitle:job};
+  if(!gender)return;
+  userData={gender:gender.value};
   startTime=Date.now();
   shuffled=shuffle(CARDS);
   scoredTotal=shuffled.filter(c=>c.scored).length;
@@ -331,30 +321,15 @@ function submitAndShowFinal(){
   document.getElementById('progressSection').style.display='none';
   document.getElementById('questionScreen').style.display='none';
   document.getElementById('submittingScreen').style.display='block';
-
-  var timeTaken = Math.round((Date.now() - startTime) / 1000);
-  var pct = Math.round((score / scoredTotal) * 100);
-  var grade;
-  if(pct >= 94) grade = 'Safety Champion';
-  else if(pct >= 72) grade = 'Safety Aware';
-  else if(pct >= 50) grade = 'Good Effort';
-  else grade = 'Keep Learning';
-
-  var url = URL2
-    + '?name=' + encodeURIComponent(userData.name)
-    + '&gender=' + encodeURIComponent(userData.gender)
-    + '&jobTitle=' + encodeURIComponent(userData.jobTitle)
-    + '&score=' + encodeURIComponent(score)
-    + '&grade=' + encodeURIComponent(grade)
-    + '&timeTaken=' + encodeURIComponent(timeTaken);
-
-  var img = new Image();
-  img.src = url;
-
-  setTimeout(function(){
-    document.getElementById('submittingScreen').style.display='none';
-    showFinal(score, grade);
-  }, 3000);
+  const pct=Math.round((score/scoredTotal)*100);
+  let grade;
+  if(pct>=94)grade='🏆 Safety Champion';
+  else if(pct>=72)grade='⭐ Safety Aware';
+  else if(pct>=50)grade='👍 Good Effort';
+  else grade='📚 Keep Learning';
+  const timeTaken=Math.round((Date.now()-startTime)/1000);
+  fetch(URL2,{method:'POST',body:JSON.stringify({name:userData.name,gender:userData.gender,jobTitle:userData.jobTitle,score,grade,timeTaken})})
+    .catch(()=>{}).finally(()=>{document.getElementById('submittingScreen').style.display='none';showFinal(score,grade);});
 }
 
 function showFinal(sc,grade){
@@ -365,16 +340,13 @@ function showFinal(sc,grade){
   else if(pct>=72){trophy='⭐';title='Safety Aware!';gradeClass='gaware';ar='gr3';}
   else if(pct>=50){trophy='👍';title='Good Effort!';gradeClass='ggood';ar='gr2';}
   else{trophy='📚';title='Keep Learning!';gradeClass='gkeep';ar='gr1';}
-  grade = trophy + ' ' + title.replace('!','');
   document.getElementById('finalTrophy').textContent=trophy;
   document.getElementById('finalTitle').textContent=title;
   document.getElementById('finalScoreBig').textContent=sc+' / '+scoredTotal;
   const gb=document.getElementById('gradeBadge');gb.textContent=grade;gb.className='gb '+gradeClass;
   document.getElementById('summaryCard').innerHTML=`
-    <div class="sr"><span class="sk">Name</span><span class="sv">${userData.name}</span></div>
-    <div class="sr"><span class="sk">Job Title</span><span class="sv">${userData.jobTitle}</span></div>
-    <div class="sr"><span class="sk">Gender</span><span class="sv">${userData.gender}</span></div>
     <div class="sr"><span class="sk">Final Score</span><span class="sv" style="color:var(--purple);font-weight:600;">${sc} / ${scoredTotal}</span></div>
+    <div class="sr"><span class="sk">Grade</span><span class="sv">${grade}</span></div>
   `;
   ['gr1','gr2','gr3','gr4'].forEach(id=>{document.getElementById(id).classList.toggle('act',id===ar);});
 }
