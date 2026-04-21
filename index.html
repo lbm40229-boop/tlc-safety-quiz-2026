@@ -383,6 +383,7 @@ function showFinal(sc,grade){
   else if(pct>=72){trophy='⭐';title='Safety Aware!';gradeClass='gaware';ar='gr3';}
   else if(pct>=50){trophy='👍';title='Good Effort!';gradeClass='ggood';ar='gr2';}
   else{trophy='📚';title='Keep Learning!';gradeClass='gkeep';ar='gr1';}
+  grade = trophy + ' ' + title.replace('!','');
   document.getElementById('finalTrophy').textContent=trophy;
   document.getElementById('finalTitle').textContent=title;
   document.getElementById('finalScoreBig').textContent=sc+' / '+scoredTotal;
